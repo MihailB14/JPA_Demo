@@ -1,8 +1,6 @@
 package com.example.demoJPA.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -10,9 +8,12 @@ import java.util.Date;
 public class Payments {
     @Id
     @GeneratedValue
-    Integer customer_id;
-
+    Integer id;
     Date payment_date;
 
     Double amount;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customers payment_customer;
 }

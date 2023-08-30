@@ -1,16 +1,17 @@
 package com.example.demoJPA.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
+@Data
 public class Orders {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     Date order_date;
@@ -21,6 +22,12 @@ public class Orders {
 
     String comments;
 
-    Integer customer_id;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customers customers;
+
+    @OneToMany(mappedBy = "ord")
+    private List<OrderDetails> orderDetails;
+
 
 }

@@ -1,12 +1,12 @@
 package com.example.demoJPA.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Setter
@@ -15,8 +15,8 @@ import lombok.Setter;
 public class Customers {
 
     @Id
-    @GeneratedValue
-    Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer customer_id;
 
     String username;
 
@@ -33,5 +33,11 @@ public class Customers {
     String postalCode;
 
     String country;
+
+    @OneToMany(mappedBy = "customers")
+    private List<Orders> orders;
+
+    @OneToMany(mappedBy = "payment_customer")
+    private List<Payments> payments;
 }
 
